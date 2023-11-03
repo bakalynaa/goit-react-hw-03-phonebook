@@ -1,5 +1,6 @@
 
 
+
 const ContactList = ({ onDeleteContact, getFilteredContacts }) => {
   return (
     <ul>
@@ -9,7 +10,7 @@ const ContactList = ({ onDeleteContact, getFilteredContacts }) => {
             <p>{el.name}: {el.number}</p>
             <button
               type="button"
-              onClick={() => {onDeleteContact(el.name);}}
+              onClick={() => {onDeleteContact(el.id);}}
             >Delete</button>
           </li>
         );

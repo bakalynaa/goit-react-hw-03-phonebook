@@ -1,42 +1,53 @@
-import { useState } from 'react';
+import { Component } from 'react';
 
 
-const ContactForm = ( {addNewContact} ) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+class ContactForm extends Component {
 
-  const handleSubmit = () => {
-    addNewContact({name, number});
-    setName('');
-    setNumber('')
+  state = {
+    name: '',
+    number: '',
+  };
+
+  newContact = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  addNewContact = (e) => {
+    e.preventDefault()
+    this.props.addNewContact(this.state);
+    this.setState( {name: '', number: ''});
+  };
+
+  render() {
+
+    return (
+      <form onSubmit={this.addNewContact}>
+        <label>
+          Name:
+          <input
+            type='text'
+            name='name'
+            value={this.state.name}
+            onChange={this.newContact}
+            required
+          />
+        </label>
+        <label>
+          Number:
+          <input
+            type='tel'
+            name='number'
+            value={this.state.number}
+            onChange={this.newContact}
+            required
+            placeholder='000-00-00'
+          />
+        </label>
+        <button type='submit' >Add contact</button>
+      </form>
+    );
   }
-
-  return (
-    <form>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Number:
-        <input
-          type="tel"
-          name="number"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          required
-          placeholder="000-00-00"
-        />
-      </label>
-      <button type='button' onClick={handleSubmit}>Add contact</button>
-    </form>
-  );
 }
+
 
 export default ContactForm;

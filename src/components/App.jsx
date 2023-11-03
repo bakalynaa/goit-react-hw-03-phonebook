@@ -48,9 +48,9 @@ class App extends Component {
     );
   };
 
-  onDeleteContact = name => {
+  onDeleteContact = id => {
     this.setState({
-      contacts: this.state.contacts.filter(item => item.name !== name),
+      contacts: this.state.contacts.filter(item => item.id !== id),
     });
   };
 
